@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{ author.full_name }}{% endblock %}
+
+{% block content %}
+    <h1>{{friend.friend_name}}</h1>
+    <p>Взятые книги:</p>
+    <ul class="list-group mb-3">
+        {% for book in friend.borrowed_books.all %}
+        <li class="list-group-item">{{ book.title }} ({{ book.author }})</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

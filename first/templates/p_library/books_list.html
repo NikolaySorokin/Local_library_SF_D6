@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Список книг библиотеки{% endblock %}
+
+{% block content %}
+{% load static %}
+    <h1>Список книг личной бибилиотеки</h1>
+    <div class="d-flex justify-content-end m-4">
+            <a class="btn btn-primary mr-2 index-btn" href="{% url 'p_library:book_create' %}">Добавить книгу</a>
+            <a class="btn btn-primary mr-2 index-btn" href="{% url 'p_library:author_create' %}">Добавить автора</a>
+    </div>
+    {% if books_list %}
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Название книги</th>
+                <th scope="col">Автор</th>
+                <th scope="col">Издательство</th>
+                <th scope="col">Цена</th>
+                <th scope="col">Обложка</th>
+                <th scope="col">Кол-во экземпляров</th>
+            </tr>
+            </thead>
+            {% for book in books_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="{% url 'p_library:book_detail' book.pk %}">{{ book.title }}</a></td>
+                    <td><a href="{% url 'p_library:author_detail' book.author.pk %}">{{ book.author }}</a></td>
+                    <td>{{ book.publisher }}</td>
+                    <td>{{ book.price }}</td>
+                    <td>
+                        {% if book.book_image %}
+                            <img class="book-image" src="{{ book.book_image.url }}" alt="Изображение книги">
+                        {% else %}
+                            Нет изображения
+                        {% endif %}
+                    </td>
+                    <td class="copy-count-td">
+                        <div>
+                            {{ book.copy_count }}
+                        </div>
+                        <div>
+                            <form action="/library/book_increment/" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{book.id}}" />
+                                <button type="submit" class="btn btn-primary btn-sm mb-1 copy-count-change-btn">+</button>
+                            </form>
+                            <form action="/library/book_decrement/" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{book.id}}" />
+                                <button type="submit" class="btn btn-primary btn-sm mb-1 copy-count-change-btn">-</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        Где все книги?!
+    {% endif %}
+
+{% endblock %}

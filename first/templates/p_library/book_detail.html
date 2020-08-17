@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{book.title}}</h1>
+    <p>{{ book.ISBN }}</p>
+    <p>{{ book.author }}</p>
+    <p>{{ book.description }}</p>
+    <p>{{ book.publisher }}</p>
+    <p>{{ book.year_release }}</p>
+    <p>{{ book.price }}</p>
+    <p>{{ book.copy_count }}</p>
+    <img src="{{ book.book_image.url }}" alt="Изображение книги">
+    <div class="d-flex justify-content-end m-4">
+            <a class="btn btn-primary mr-2 index-btn" href="{% url 'p_library:book_update' book.pk %}">Редактировать</a>
+    </div>
+{% endblock %}

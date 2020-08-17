@@ -1,0 +1,16 @@
+h1 {
+	color: grey;
+}
+
+.index-btn {
+	width: 10rem;
+}
+
+.copy-count-td {
+	display: flex;
+	justify-content: space-between;
+}
+
+.copy-count-change-btn {
+	width: 2rem;
+}

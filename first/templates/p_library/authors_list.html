@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Список авторов{% endblock %}
+
+{% block content %}
+    <h1 class="mb-5">Список авторов</h1>
+    <div class="list-group">
+        {% for author in authors_list %}
+        <a href="{% url 'p_library:author_detail' author.pk %}" class="list-group-item list-group-item-action">
+            {{ author.full_name }}
+        </a>
+        {% endfor %}
+    </div>
+{% endblock %}

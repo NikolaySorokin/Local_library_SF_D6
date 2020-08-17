@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Список друзей{% endblock %}
+
+{% block content %}
+    <h1 class="mb-5">Список друзей</h1>
+    <div class="list-group">
+        {% for friend in friends_list %}
+        <a href="{% url 'p_library:friend_detail' friend.pk %}" class="list-group-item list-group-item-action">
+            {{ friend.friend_name }}
+        </a>
+        {% endfor %}
+    </div>
+{% endblock %}

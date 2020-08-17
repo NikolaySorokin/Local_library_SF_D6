@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Список издательств{% endblock %}
+
+{% block content %}
+    <h1 class="mb-5">Список книг по издательствам</h1>
+    {% for pub in publishers %}
+    <p class="h5"><strong>Издательство: {{ pub.pub_name|upper }}</strong></p>
+    <ul class="list-group mb-3">
+        {% for book in pub.published_books.all %}
+        <li class="list-group-item">{{ book.author }} "{{ book.title }}" ({{ book.year_release }})</li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+{% endblock %}

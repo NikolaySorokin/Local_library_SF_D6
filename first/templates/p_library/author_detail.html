@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{ author.full_name }}{% endblock %}
+
+{% block content %}
+    <h1>{{author.full_name}}</h1>
+    <p>Год рождения: {{author.birth_year}}</p>
+    <p>Страна: {{author.country}}</p>
+    <p>Книги автора:</p>
+    <ul class="list-group mb-3">
+        {% for book in author.books.all|dictsort:"year_release" %}
+        <li class="list-group-item">{{ book.title }} ({{ book.year_release }})</li>
+        {% endfor %}
+    </ul>
+    <div class="d-flex justify-content-end m-4">
+        <a class="btn btn-primary mr-2 index-btn" href="{% url 'p_library:author_update' author.pk %}">Редактировать</a>
+    </div>
+{% endblock %}
